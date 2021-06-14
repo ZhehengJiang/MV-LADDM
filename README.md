@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 # Muti-view Mouse Social Behaviour Recognition with Deep Graphic Model
 ### Introduction
 
-Home-cage  social  behaviour  analysis  of  mice  is  aninvaluable tool to assess therapeutic efficacy of neurodegenerativediseases.  Despite  tremendous  efforts  made  within  the  researchcommunity,  single-camera  video  recordings  are  mainly used  forsuch analysis. Because of the potential to create rich descriptionsfor mouse social behaviors, the use of multi-view video recordingsfor rodent observations is increasingly receiving much attention.Here, we release the code of our paper for Muti-view Mouse Social Behaviour Recognition.
+Home-cage  social  behaviour  analysis  of  mice  is  an invaluable tool to assess therapeutic efficacy of neurodegenerative diseases.  Despite  tremendous  efforts  made  within  the  research community,  single-camera  video  recordings  are  mainly used  for such analysis. Because of the potential to create rich descriptions for mouse social behaviors, the use of multi-view video recordings for rodent observations is increasingly receiving much attention.Here, we release the code of our paper for Muti-view Mouse Social Behaviour Recognition.
 
 ### Dataset
 CRIM13 dataset:
@@ -30,8 +29,3 @@ If you find MV_LADDM useful in your research, please consider citing:
       publisher={IEEE}
     }
 
-  
-=======
-# MV-LADDM
-This code is from paper: Muti-view Mouse Social Behaviour Recognition with Deep Graphic Model
->>>>>>> 2a2d8be7fa59481c3c22ebaee23fc3213cb5e5f4
