@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Muti-view Mouse Social Behaviour Recognition with Deep Graphic Model
 ### Introduction
 
@@ -30,3 +31,7 @@ If you find MV_LADDM useful in your research, please consider citing:
     }
 
   
+=======
+# MV-LADDM
+This code is from paper: Muti-view Mouse Social Behaviour Recognition with Deep Graphic Model
+>>>>>>> 2a2d8be7fa59481c3c22ebaee23fc3213cb5e5f4
