@@ -205,21 +205,18 @@ class label_correlation_layer(Layer):
         """Compute logarithm of the normalization constant Z, where
         Z = sum exp(-E) -> logZ = log sum exp(-E) =: -nlogZ
         """
-        # should have logZ[:, i] == logZ[:, j] for any i, j
         logZ = self.recursion(input_energy, mask, return_sequences=False, **kwargs)
         return logZ[:, 0]
 
     def get_energy(self, y_true, input_energy, mask):
         """Energy = a1' y1 + u1' y1 + y1' U y2 + u2' y2 + y2' U y3 + u3' y3 + an' y3
         """
-        input_energy = K.sum(input_energy * y_true, 2)  # (B, T)
-        # (B, T-1)
+        input_energy = K.sum(input_energy * y_true, 2)
         chain_energy = K.sum(K.dot(y_true[:, :-1, :],
                                    self.chain_kernel) * y_true[:, 1:, :], 2)
 
         if mask is not None:
             mask = K.cast(mask, K.floatx())
-            # (B, T-1), mask[:,:-1]*mask[:,1:] makes it work with any padding
             chain_mask = mask[:, :-1] * mask[:, 1:]
             input_energy = input_energy * mask
             chain_energy = chain_energy * chain_mask
@@ -253,13 +250,11 @@ class label_correlation_layer(Layer):
             else:
                 m = K.slice(states[3], [0, t], [-1, 2])
             input_energy_t = input_energy_t * K.expand_dims(m[:, 0])
-            # (1, F, F)*(B, 1, 1) -> (B, F, F)
             chain_energy = chain_energy * K.expand_dims(
                 K.expand_dims(m[:, 0] * m[:, 1]))
         if return_logZ:
-            # shapes: (1, B, F) + (B, F, 1) -> (B, F, F)
             energy = chain_energy + K.expand_dims(input_energy_t - prev_target_val, 2)
-            new_target_val = K.logsumexp(-energy, 1)  # shapes: (B, F)
+            new_target_val = K.logsumexp(-energy, 1)
             return new_target_val, [new_target_val, i + 1]
         else:
             energy = chain_energy + K.expand_dims(input_energy_t + prev_target_val, 2)
@@ -336,10 +331,7 @@ class label_correlation_layer(Layer):
         argmin_tables = self.recursion(input_energy, mask, return_logZ=False)
         argmin_tables = K.cast(argmin_tables, 'int32')
 
-        # backward to find best path, `initial_best_idx` can be any,
-        # as all elements in the last argmin_table are the same
         argmin_tables = K.reverse(argmin_tables, 1)
-        # matrix instead of vector is required by tf `K.rnn`
         initial_best_idx = [K.expand_dims(argmin_tables[:, 0, 0])]
         if K.backend() == 'theano':
             from theano import tensor as T

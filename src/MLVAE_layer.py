@@ -1,7 +1,7 @@
-import numpy as np
+
 import tensorflow as tf
 
-from keras.layers import Lambda,Flatten,Dense,Concatenate,Reshape,Layer
+from keras.layers import Lambda, Dense, Concatenate, Reshape, Layer
 import keras
 
 class Sampling(Layer):
@@ -32,7 +32,7 @@ class MLVAE(Layer):
     def elbo_loss(self, recon_x1, x1, recon_x2, x2, mu, logvar,
                   lambda_image=1.0, lambda_text=1.0, annealing_factor=1):
 
-        x1_bce, x2_bce = 0, 0  # default params
+        x1_bce, x2_bce = 0, 0
         if recon_x1 is not None and x1 is not None:
             x1_bce = keras.backend.sum(keras.losses.mean_squared_error(
                 recon_x1, x1))

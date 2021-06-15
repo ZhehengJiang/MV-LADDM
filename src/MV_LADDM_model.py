@@ -1,15 +1,9 @@
-import argparse
-import tensorflow as tf
 
 # keras = tf.contrib.keras
-from keras.layers import Input, Dense, Embedding, Conv2D, MaxPool2D, Lambda, LSTM, TimeDistributed, Masking, \
-    Bidirectional
-from keras.layers.convolutional_recurrent import ConvLSTM2D
-from keras.layers import Reshape, Dropout, Concatenate
+from keras.layers import Input, Dense, Lambda, LSTM, TimeDistributed, Bidirectional
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.models import Model, load_model
 from src.label_correlation_layer import label_correlation_layer,lcl_loss
-import keras.backend as K
 from src.data_helpers import Dataloader
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
@@ -127,7 +121,6 @@ class MV_LADDM:
 
         model = self.get_MVLADDM_model()
         model.add_loss(self.total_loss)
-        # model.compile(optimizer='adam', loss='categorical_crossentropy', sample_weight_mode='temporal')
         model.compile(optimizer='adam')
 
         early_stopping = EarlyStopping(monitor='val_loss', patience=10)
